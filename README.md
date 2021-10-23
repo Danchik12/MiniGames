@@ -1,5 +1,7 @@
 # MiniGames
-games,javascript
-Breaking
+
+
+
+# Breaking
 
 Управление стрелками лево и право клавиатуры
