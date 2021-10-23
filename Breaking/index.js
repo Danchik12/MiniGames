@@ -146,6 +146,7 @@ function draw(){
 		html=`Game Over`;
 		document.getElementById('message').innerHTML=html;
 		over.play();
+		window.cancelAnimationFrame(raf);
 		}
 	
 
