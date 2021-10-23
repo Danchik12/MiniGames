@@ -1,0 +1,2 @@
+# MiniGames
+games,javascript
