@@ -58,7 +58,7 @@ function drawBricks() {
         for(var r=0; r<brickRowCount; r++) {
             if(bricks[c][r].status == 1) {
                 var brickX = (c*(50+10))+50;
-                var brickY = (r*(20+10))+30;
+                var brickY = (r*(20+10))+20;
                 bricks[c][r].x = brickX;
                 bricks[c][r].y = brickY;
                 ctx.beginPath();
