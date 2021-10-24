@@ -57,8 +57,8 @@ function drawBricks() {
     for(var c=0; c<brickColumnCount; c++) {
         for(var r=0; r<brickRowCount; r++) {
             if(bricks[c][r].status == 1) {
-                var brickX = (c*(50+10))+50;
-                var brickY = (r*(20+10))+20;
+                var brickX = (c*(50+10))+80;
+                var brickY = (r*(20+10))+50;
                 bricks[c][r].x = brickX;
                 bricks[c][r].y = brickY;
                 ctx.beginPath();
@@ -129,6 +129,7 @@ document.addEventListener("keydown",function(e){
 //рисование на canvas
 function draw(){
 	ScoreTable();
+	
 	ctx.fillStyle = "black";
 	ctx.fillRect(0,0,cvs.width,cvs.height);
 	platform.draw();
@@ -139,14 +140,13 @@ function draw(){
 	if ( ball.y + ball.vy < 0) 
 	{
   ball.vy = -ball.vy;
-
+  
 }
 //game over
 	if(ball.y>cvs.height){
 		html=`Game Over`;
 		document.getElementById('message').innerHTML=html;
 		over.play();
-		window.cancelAnimationFrame(raf);
 		}
 	
 
@@ -155,10 +155,10 @@ function draw(){
 	{
   ball.vx = -ball.vx;
 }
-
-	//вызов проверки столкновения
+//вызов проверки столкновения
 	Collision();
 	collisionDetection();
+	
 	
 	
 	
