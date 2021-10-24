@@ -43,7 +43,7 @@ var ball={
 }
 };
 //block
-brickColumnCount=5;
+brickColumnCount=4;
 brickRowCount=4;
 var bricks = [];
 for(var c=0; c<brickColumnCount; c++) {
