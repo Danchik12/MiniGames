@@ -139,7 +139,7 @@ function draw(){
 	if ( ball.y + ball.vy < 0) 
 	{
   ball.vy = -ball.vy;
-  kick.play();
+
 }
 //game over
 	if(ball.y>cvs.height){
