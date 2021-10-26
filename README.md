@@ -14,4 +14,8 @@ link https://danchik12.github.io/MiniGames/Breaking/
 
 link https://danchik12.github.io/MiniGames/flappy%20bird/
 
+# Balloons
 
+Уничтожай шары с помощью снарядов перезарядка -R (много багов!)
+
+link 
