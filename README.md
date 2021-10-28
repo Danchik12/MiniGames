@@ -19,3 +19,9 @@ link https://danchik12.github.io/MiniGames/flappy%20bird/
 Уничтожай шары с помощью снарядов перезарядка - R (много багов!)
 
 link https://danchik12.github.io/MiniGames/Balloons/
+
+# Snake
+
+Поедай яблоки чтобы увеличить змейку.Управление стрелками
+
+link https://danchik12.github.io/MiniGames/Snake/
