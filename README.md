@@ -25,3 +25,9 @@ link https://danchik12.github.io/MiniGames/Balloons/
 Поедай яблоки чтобы увеличить змейку.Управление стрелками
 
 link https://danchik12.github.io/MiniGames/Snake/
+
+# PingPong
+
+Упарвляй платформой и победи компьютера . Управление стрелки вверх и вниз
+
+link https://danchik12.github.io/MiniGames/Pingpong/
