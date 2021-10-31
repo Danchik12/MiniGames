@@ -1,6 +1,6 @@
 var cvs = document.getElementById("game");
 var ctx = cvs.getContext("2d");
-var paddleSpeed=7;
+var paddleSpeed=8;
 var computer={
 	x:10,
 	y:cvs.height/2-60,
@@ -49,8 +49,8 @@ var ball={
 	x:cvs.width/2,
 	y:cvs.height/2,
 	radius: 10,
-	vx:5,
-	vy:5,
+	vx:8,
+	vy:8,
 	color:"white",
 	resetting:false,
 	draw: function() {
