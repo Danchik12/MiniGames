@@ -28,6 +28,14 @@ link https://danchik12.github.io/MiniGames/Snake/
 
 # PingPong
 
-Упарвляй платформой и победи компьютера . Управление стрелки вверх и вниз
+Управляй платформой и победи компьютера . Управление стрелки вверх и вниз
 
 link https://danchik12.github.io/MiniGames/Pingpong/
+
+# DinoRunner
+
+Прыгай динозавриком.<p>Управление: 
+прыжок - W</p>
+
+link https://danchik12.github.io/MiniGames/Runner/
+
