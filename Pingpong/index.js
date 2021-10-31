@@ -173,7 +173,7 @@ computer.y += ((ball.y - (computer.y + computer.height / 2))) * computer.complex
 		ball.x-=ball.vx;
 		ball.y+=ball.vy;
 		 
-		}else if(computer.score<player.score){
+		}else if(computer.score<=player.score){
 		ball.x+=ball.vx;
 		ball.y+=ball.vy;
 		
