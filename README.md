@@ -36,11 +36,4 @@ link https://danchik12.github.io/MiniGames/Snake/
 
 link https://danchik12.github.io/MiniGames/Pingpong/
 
-# DinoRunner
-
-Прыгай динозавриком.<p>Управление: 
-прыжок - W</p>
-
-link https://danchik12.github.io/MiniGames/Runner/
-
 
