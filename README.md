@@ -28,7 +28,11 @@ link https://danchik12.github.io/MiniGames/Snake/
 
 # PingPong
 
-Управляй платформой и победи компьютера . Управление стрелки вверх и вниз
+
+Управляй платформой и победи компьютера . 
+<p>Игра до 5 очков</p>
+
+Управление стрелки вверх и вниз
 
 link https://danchik12.github.io/MiniGames/Pingpong/
 
