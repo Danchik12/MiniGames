@@ -109,7 +109,7 @@ function render(){
 
 }
 //Обновление
-function update(){
+function update(AnimationFrame){
 	player.y += player.dy;
 	//гранцицы платформы игрока
 	if(player.y<0){
@@ -184,6 +184,33 @@ computer.y += ((ball.y - (computer.y + computer.height / 2))) * computer.complex
 		ball.x-=ball.vx;
 		ball.y+=ball.vy;
 	}
+	//Если у игрока 5 очков заканчиваем игру
+	if(player.score==5){
+		//возвращаем мяч в центр
+		ball.resetting = false;
+		ball.x = cvs.width / 2;
+        ball.y = cvs.height / 2;
+		//Останавливаем анимацию
+		window.cancelAnimationFrame(AnimationFrame);
+		//Пишем You Won
+		ctx.font = "48px Verdana";
+		ctx.fillStyle = 'white';
+		ctx.fillText("You Won",275, 50);
+		
+          
+        //то же самое 
+	}else if(computer.score==5){
+		//возвращаем мяч в центр
+		ball.resetting = false;
+		ball.x = cvs.width / 2;
+        ball.y = cvs.height / 2;
+		//Останавливаем анимацию
+		window.cancelAnimationFrame(AnimationFrame);
+		//Пишем You've lost
+		ctx.font = "48px Verdana";
+		ctx.fillStyle = 'white';
+		ctx.fillText("You've lost",275, 50);
+	}
 	
 }
 
@@ -192,8 +219,8 @@ computer.y += ((ball.y - (computer.y + computer.height / 2))) * computer.complex
 function loop(){
 ctx.clearRect(0, 0, cvs.width, cvs.height)
 render();
-update();
+update(animation);
 	
-requestAnimationFrame(loop)
+var animation=requestAnimationFrame(loop)
 }
 window.onload=loop()
