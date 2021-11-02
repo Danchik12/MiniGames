@@ -1,6 +1,14 @@
 var cvs = document.getElementById("game");
 var ctx = cvs.getContext("2d");
 var paddleSpeed=8;
+//звуки
+var kick_1=new Audio();
+var kick_2=new Audio();
+
+
+kick_1.src='sound/kick_1.mp3';
+kick_2.src='sound/kick_2.mp3';
+
 var computer={
 	x:10,
 	y:cvs.height/2-60,
@@ -156,14 +164,14 @@ computer.y += ((ball.y - (computer.y + computer.height / 2))) * computer.complex
 	}
 	//отбивание мяча
 	if(collides(ball,player)){
-		
+		kick_1.play();
 		ball.vx*=-1;
 		ball.x+=ball.vx;
 		ball.x = player.x;
 	}
 	//то же самое для компьютера
 	if(collides(ball,computer)){
-		
+		kick_2.play();
 		ball.vx*=-1;
 		ball.x+=ball.vx;
 		ball.x = computer.x + computer.width;
@@ -197,6 +205,7 @@ computer.y += ((ball.y - (computer.y + computer.height / 2))) * computer.complex
 		ctx.fillStyle = 'white';
 		ctx.fillText("You Won",275, 50);
 		
+		
           
         //то же самое 
 	}else if(computer.score==5){
@@ -210,6 +219,7 @@ computer.y += ((ball.y - (computer.y + computer.height / 2))) * computer.complex
 		ctx.font = "48px Verdana";
 		ctx.fillStyle = 'white';
 		ctx.fillText("You've lost",275, 50);
+
 	}
 	
 }
