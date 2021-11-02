@@ -1,5 +1,6 @@
 var cvs = document.getElementById("game");
 var ctx = cvs.getContext("2d");
+//скорость платформы
 var paddleSpeed=8;
 //звуки
 var kick_1=new Audio();
@@ -8,7 +9,7 @@ var kick_2=new Audio();
 
 kick_1.src='sound/kick_1.mp3';
 kick_2.src='sound/kick_2.mp3';
-
+//компьютер
 var computer={
 	x:10,
 	y:cvs.height/2-60,
@@ -31,6 +32,7 @@ var computer={
 		ctx.fillText(this.score,0+40,0+30)}
 	
 };
+//игрок
 var player={
 	x:cvs.width-20,
 	y:cvs.height/2-60,
@@ -52,6 +54,7 @@ var player={
 		ctx.fillText(this.score,cvs.width-50,0+30)}
 	
 };
+//мяч
 var ball={
 	
 	x:cvs.width/2,
@@ -69,7 +72,7 @@ var ball={
     ctx.fill();
 }
 };
-
+//Управление платморфой
 document.addEventListener("keydown",function(e){
 	if (e.code ==="ArrowUp"){
 		player.dy=-paddleSpeed;
@@ -90,7 +93,7 @@ document.addEventListener('keyup', function (e) {
     player.dy = 0;
 }})
 
-
+//Столкновение объкетов
 function collides(obj1, obj2) {
   return obj1.x > obj2.x && obj1.x < obj2.x+obj2.width && obj1.y > obj2.y 
   && obj1.y < obj2.y+obj2.height;
