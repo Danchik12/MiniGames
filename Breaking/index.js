@@ -8,13 +8,20 @@ var win = new Audio();
 over.src = "sound/over.mp3";
 kick.src = "sound/kick.mp3";
 win.src="sound/win.mp3"
+//скорость платформы
+var paddleSpeed=8;
 //score
 var score=0;
+//различный цвет блоков
+function getRandomColor(){
+	const random_color=Math.floor(Math.random()*16777215).toString(16);
+	return '#'+random_color
+}
 //platform
 var platform={
 	x:cvs.width/2-70,
 	y:cvs.height-30,
-	vx:45,
+	vx:0,
 	width:120,
 	height:15,
 	color:"blue",
@@ -25,6 +32,7 @@ var platform={
     ctx.closePath();
 }
 };
+
 //ball
 var ball={
 	x:cvs.width/2,
@@ -49,12 +57,13 @@ var bricks = [];
 for(var c=0; c<brickColumnCount; c++) {
     bricks[c] = [];
     for(var r=0; r<brickRowCount; r++) {
-        bricks[c][r] = { x: 0, y: 0, status: 1 };
+        bricks[c][r] = { x: 0, y: 0, status: 1,color:getRandomColor() };
     }
 }
 function drawBricks() {
   {
     for(var c=0; c<brickColumnCount; c++) {
+		
         for(var r=0; r<brickRowCount; r++) {
             if(bricks[c][r].status == 1) {
                 var brickX = (c*(50+10))+80;
@@ -63,7 +72,7 @@ function drawBricks() {
                 bricks[c][r].y = brickY;
                 ctx.beginPath();
                 ctx.rect(brickX, brickY, 50, 20);
-                ctx.fillStyle = "#0095DD";
+                ctx.fillStyle =bricks[c][r].color
                 ctx.fill();
                 ctx.closePath();
             }
@@ -90,14 +99,12 @@ function Collision(){
 					kick.play();
                     b.status = 0;
 					score++;
-					//Win
-					if (score==brickColumnCount*brickRowCount){
-						html=`You Win`;
-		document.getElementById('message').innerHTML=html;
-		win.play();
-		window.cancelAnimationFrame(raf);
+					
+					
+					
+					
 		
-					}
+					
                 }
             }
         }
@@ -114,22 +121,33 @@ function ScoreTable(){
 document.addEventListener("keydown",function(e){
 	if (e.key==="ArrowRight" ){
 		
-		platform.x+=platform.vx;
+		platform.vx+=paddleSpeed;
 		
 	}
-	if (e.key==="ArrowLeft" ){
+	if (e.key==="ArrowLeft"  ){
 	
-		platform.x-=platform.vx;
+		platform.vx-=paddleSpeed;
 		
 	}
 });
+document.addEventListener('keyup', function (e) {
+  // Если это стрелка лeво или право
+  if (e.which === 37 || e.which === 39) {
+    // останавливаем  платформу
+    platform.vx = 0;
+}})
 
 
 
 //рисование на canvas
 function draw(){
 	ScoreTable();
-	
+	platform.x += platform.vx;
+	if(platform.x<=0){
+		platform.x=0;
+	}else if(platform.x +platform.width>cvs.width){
+		platform.x=cvs.width-platform.width;
+	}
 	ctx.fillStyle = "black";
 	ctx.fillRect(0,0,cvs.width,cvs.height);
 	platform.draw();
@@ -148,6 +166,13 @@ function draw(){
 		document.getElementById('message').innerHTML=html;
 		over.play();
 		}
+		//Win
+	if (score==brickColumnCount*brickRowCount){
+		html=`You Win`;
+		document.getElementById('message').innerHTML=html;
+		win.play();
+		window.cancelAnimationFrame(raf);
+	}
 	
 
 		//Границы
@@ -166,5 +191,6 @@ function draw(){
 	
 	var raf = requestAnimationFrame(draw);
 }
+
 
 window.onload=draw;
