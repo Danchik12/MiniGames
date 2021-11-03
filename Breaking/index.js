@@ -105,16 +105,15 @@ speedY=-speedY
 					kick.play();
                     b.status = 0;
 					score++;
-					
+					//увеличение скорости мячика
+					speedX=Math.abs(speedX)+0.2
+					speedY=Math.abs(speedY)+0.2
 				
 					
 					
 					
 					
-					
-		
-					
-                }
+		}
             }
         }
     }
