@@ -1,17 +1,17 @@
 var cvs = document.getElementById("game");
 var ctx = cvs.getContext("2d");
-
-var grid = 16;
-// cadres speed
+//размер клетки
+var grid = 20;
+// скорость кадров
 var count = 0;
 
-//score
+//счет
 var score=0;
 function getRandomColor(){
 	const random_color=Math.floor(Math.random()*16777215).toString(16);
 	return '#'+random_color
 }
-// snake
+// змея
 var snake = {
   // coordinates
   x: 160,
@@ -22,24 +22,35 @@ var snake = {
   color:getRandomColor(),
   
   cells: [],
-  //start length snake
+  //начальная длина змеи
   maxCells: 1
 };
-//apples
+//еда
 var apple = {
 
   x: 320,
   y: 320
 };
-//for apples
+//для еды
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 function loop() {
-  
+	//начальное съеденое количество яблок
+  apples_count=0;
   requestAnimationFrame(loop);
+  n=5;
+  //каждое 15 съеденое яблоко увеличиваем скорость
+  if (apples_count==15){
+	  apples_count=0;
+	  n--;
+  }
+  //пропускаем каждый n кадр и чтобы уменьшить скорость игры и увеличивать за съеденые яблоки
   
-  if (++count < 4) {
+  if (n == 2){
+	  apples_count=20;
+  }
+  if (++count < n) {
     return;
   }
   
@@ -63,8 +74,8 @@ function loop() {
         snake.dy = 0;
 		snake.color=getRandomColor();
        
-        apple.x = getRandomInt(0, 25) * grid;
-        apple.y = getRandomInt(0, 25) * grid;
+        apple.x = getRandomInt(0, 30) * grid;
+        apple.y = getRandomInt(0, 30) * grid;
 		score=0;
   
   
@@ -78,23 +89,24 @@ function loop() {
   //рисование яблока
   ctx.fillStyle = 'red';
   ctx.fillRect(apple.x, apple.y, grid - 1, grid - 1);
-  //рисование всей змеи
+  //движение змеи
   
-  
+  ctx.fillStyle = snake.color;
   snake.cells.forEach(function (cell, index) {
-	 ctx.fillStyle = snake.color;
+	 
     
     ctx.fillRect(cell.x, cell.y, grid - 1, grid - 1);
     //поедания яблока
     if (cell.x === apple.x && cell.y === apple.y) {
-    
+	
 	  score++;
       snake.maxCells++;
 	  snake.color=getRandomColor();
+	  apples_count++;
 	  
       
-      apple.x = getRandomInt(0, 25) * grid;
-      apple.y = getRandomInt(0, 25) * grid;
+      apple.x = getRandomInt(0,30) * grid;
+      apple.y = getRandomInt(0, 30) * grid;
     }
     //если змея врезалась в себя
     for (var i = index + 1; i < snake.cells.length; i++) {
@@ -108,8 +120,8 @@ function loop() {
         snake.dx = grid;
         snake.dy = 0;
 		snake.color=getRandomColor();
-        apple.x = getRandomInt(0, 25) * grid;
-        apple.y = getRandomInt(0, 25) * grid;
+        apple.x = getRandomInt(0, 30) * grid;
+        apple.y = getRandomInt(0, 30) * grid;
 		score=0;
       }
     }
