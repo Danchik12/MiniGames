@@ -1,23 +1,27 @@
 var cvs = document.getElementById("game");
 var ctx = cvs.getContext("2d");
-//sound
+//звуки
 var over = new Audio();
 var kick = new Audio();
 var win = new Audio();
-
 over.src = "sound/over.mp3";
 kick.src = "sound/kick.mp3";
 win.src="sound/win.mp3"
+
 //скорость платформы
 var paddleSpeed=8;
-//score
+
+//счет
 var score=0;
+//скорость мяча
+var speedX=4;
+var speedY=4;
 //различный цвет блоков
 function getRandomColor(){
 	const random_color=Math.floor(Math.random()*16777215).toString(16);
 	return '#'+random_color
 }
-//platform
+//платформа
 var platform={
 	x:cvs.width/2-70,
 	y:cvs.height-30,
@@ -33,13 +37,11 @@ var platform={
 }
 };
 
-//ball
+//мяч
 var ball={
 	x:cvs.width/2,
 	y:cvs.height/2,
 	radius: 10,
-	vx:4,
-	vy:4,
 	color:"white",
 	
 	 draw: function() {
@@ -50,7 +52,7 @@ var ball={
     ctx.fill();
 }
 };
-//block
+//блоки
 brickColumnCount=4;
 brickRowCount=4;
 var bricks = [];
@@ -60,6 +62,7 @@ for(var c=0; c<brickColumnCount; c++) {
         bricks[c][r] = { x: 0, y: 0, status: 1,color:getRandomColor() };
     }
 }
+//рисование блоуов
 function drawBricks() {
   {
     for(var c=0; c<brickColumnCount; c++) {
@@ -82,23 +85,29 @@ function drawBricks() {
 }
 
 
-//Collisions platform and Ball
+//Столкновение платформы и мяча
 function Collision(){
  if(ball.x > platform.x && ball.x < platform.x+platform.width && ball.y > platform.y && ball.y < platform.y+platform.height) {
- ball.vy=-ball.vy
- kick.play();};
+speedY=-speedY
+ ball.y+=speedY
+ kick.play();
+ }
 }
- //Collisions bricks and ball
+ //Столкновение блоков и мяча
  function collisionDetection() {
     for(var c=0; c<brickColumnCount; c++) {
         for(var r=0; r<brickRowCount; r++) {
             var b = bricks[c][r];
             if(b.status == 1) {
                 if(ball.x > b.x && ball.x < b.x+50 && ball.y > b.y && ball.y < b.y+20) {
-                    ball.vy = -ball.vy;
+					speedY=-speedY
+                    ball.y+=speedY
 					kick.play();
                     b.status = 0;
 					score++;
+					
+				
+					
 					
 					
 					
@@ -143,6 +152,7 @@ document.addEventListener('keyup', function (e) {
 function draw(){
 	ScoreTable();
 	platform.x += platform.vx;
+	//границы платформы
 	if(platform.x<=0){
 		platform.x=0;
 	}else if(platform.x +platform.width>cvs.width){
@@ -153,20 +163,16 @@ function draw(){
 	platform.draw();
 	ball.draw();
 	drawBricks();
-	ball.x += ball.vx;
-	ball.y += ball.vy;
-	if ( ball.y + ball.vy < 0) 
-	{
-  ball.vy = -ball.vy;
-  
-}
-//game over
+	ball.x += speedX;
+	ball.y += speedY;
+	
+//игра окончена
 	if(ball.y>cvs.height){
 		html=`Game Over`;
 		document.getElementById('message').innerHTML=html;
 		over.play();
 		}
-		//Win
+		//победа
 	if (score==brickColumnCount*brickRowCount){
 		html=`You Win`;
 		document.getElementById('message').innerHTML=html;
@@ -174,11 +180,18 @@ function draw(){
 		window.cancelAnimationFrame(raf);
 	}
 	
-
-		//Границы
-	if (ball.x + ball.vx > cvs.width || ball.x + ball.vx < 0) 
+ 
+		//Границы мяча
+	if (ball.x + speedX > cvs.width || ball.x + speedX < 0) 
 	{
-  ball.vx = -ball.vx;
+		speedX=-speedX
+  ball.x +=speedX;
+}
+if ( ball.y + speedY < 0) 
+	{
+		speedY=-speedY
+  ball.y +=speedY
+  
 }
 //вызов проверки столкновения
 	Collision();
