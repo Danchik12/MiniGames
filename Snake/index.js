@@ -7,6 +7,7 @@ var count = 0;
 
 //счет
 var score=0;
+//разный цвет
 function getRandomColor(){
 	const random_color=Math.floor(Math.random()*16777215).toString(16);
 	return '#'+random_color
@@ -31,24 +32,27 @@ var apple = {
   x: 320,
   y: 320
 };
+var apples_count=0;
+var n=5;
 //для еды
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 function loop() {
 	//начальное съеденое количество яблок
-  apples_count=0;
+  
   requestAnimationFrame(loop);
-  n=5;
-  //каждое 15 съеденое яблоко увеличиваем скорость
-  if (apples_count==15){
+ 
+  //каждое 30 съеденое яблоко увеличиваем скорость
+  if (apples_count==30){
 	  apples_count=0;
 	  n--;
+	 
   }
   //пропускаем каждый n кадр и чтобы уменьшить скорость игры и увеличивать за съеденые яблоки
   
   if (n == 2){
-	  apples_count=20;
+	  apples_count=40;
   }
   if (++count < n) {
     return;
@@ -77,6 +81,8 @@ function loop() {
         apple.x = getRandomInt(0, 30) * grid;
         apple.y = getRandomInt(0, 30) * grid;
 		score=0;
+		n=5;
+		apples_count=0;
   
   
   }
@@ -104,6 +110,7 @@ function loop() {
 	  snake.color=getRandomColor();
 	  apples_count++;
 	  
+	  
       
       apple.x = getRandomInt(0,30) * grid;
       apple.y = getRandomInt(0, 30) * grid;
@@ -123,6 +130,8 @@ function loop() {
         apple.x = getRandomInt(0, 30) * grid;
         apple.y = getRandomInt(0, 30) * grid;
 		score=0;
+		n=5;
+		apples_count=0;
       }
     }
   });
