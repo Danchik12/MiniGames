@@ -7,7 +7,45 @@ var count = 0;
 
 //счет
 var score=0;
-//разный цвет
+//берем рекорд из локального хранилища
+function getHighscore(){
+	//берем highscore
+	let highscore =localStorage.getItem('highscore');
+		//если такой записи не было
+		if (highscore === null){
+			//присваиваим highscore 0
+			highscore=0;
+			//добавляем запись
+			localStorage.setItem("highscore", highscore)
+			//возвращаем значение
+			return highscore
+			//если была
+		}else{
+			//просто возвращаем значение
+			return highscore
+		}
+		
+}
+//ложим рекорд в локальное хранилище
+function setHighscore(){
+	localStorage.setItem("highscore", highscore);
+}
+//рестарт 
+function restart(){
+	 snake.x = 180;
+     snake.y = 180;
+     snake.cells = [];
+     snake.maxCells = 1;
+     snake.dx = grid;
+     snake.dy = 0;
+	 snake.color=getRandomColor();
+     apple.x = getRandomInt(2, 23) * grid;
+     apple.y = getRandomInt(2, 23) * grid;
+	 score=0;
+	 n=5;
+	 apples_count=0;
+}
+//разный цвет змеи
 function getRandomColor(){
 	const random_color=Math.floor(Math.random()*16777215).toString(16);
 	return '#'+random_color
@@ -60,33 +98,32 @@ function loop() {
   
   count = 0;
  
-  ctx.clearRect(0, 0, cvs.width, cvs.height);
+  ctx.clearRect(0, 0,cvs.width, cvs.height);
+  ctx.strokeStyle = "white";
+  ctx.strokeRect(40,40,560,560);
   ctx.font = "24px Verdana";
   ctx.fillStyle = 'white';
-  ctx.fillText(score,0+10,0+25)
+  ctx.fillText(score,0+40,0+25)
+  highscore=getHighscore();
+  ctx.font = "24px Verdana";
+  ctx.fillStyle = 'white';
+  ctx.fillText("Highscore: "+highscore,0+220,0+25)
   
   snake.x += snake.dx;
   snake.y += snake.dy;
- //Врезание в границу
-  if (snake.x < 0 || snake.x >= cvs.width || snake.y < 0 || snake.y >= cvs.height) {
-    
-        snake.x = 160;
-        snake.y = 160;
-        snake.cells = [];
-        snake.maxCells = 1;
-        snake.dx = grid;
-        snake.dy = 0;
-		snake.color=getRandomColor();
-       
-        apple.x = getRandomInt(0, 30) * grid;
-        apple.y = getRandomInt(0, 30) * grid;
-		score=0;
-		n=5;
-		apples_count=0;
+  
+ //Врезание в границу                                              40+560=cvs.height
+  if (snake.x < 40 || snake.x >= cvs.width || snake.y < 40 || snake.y >= cvs.height) {
+	  //проверяем больше ли счет рекорда
+		if (score>highscore){
+			highscore=score;
+			setHighscore();
+		}
+        restart();
   
   
   }
-  
+  //ползание змеи
   snake.cells.unshift({ x: snake.x, y: snake.y });
   
   if (snake.cells.length > snake.maxCells) {
@@ -112,26 +149,19 @@ function loop() {
 	  
 	  
       
-      apple.x = getRandomInt(0,30) * grid;
-      apple.y = getRandomInt(0, 30) * grid;
+      apple.x = getRandomInt(2,23) * grid;
+      apple.y = getRandomInt(2,23) * grid;
     }
     //если змея врезалась в себя
     for (var i = index + 1; i < snake.cells.length; i++) {
      
       if (cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) {
-        
-        snake.x = 160;
-        snake.y = 160;
-        snake.cells = [];
-        snake.maxCells = 1;
-        snake.dx = grid;
-        snake.dy = 0;
-		snake.color=getRandomColor();
-        apple.x = getRandomInt(0, 30) * grid;
-        apple.y = getRandomInt(0, 30) * grid;
-		score=0;
-		n=5;
-		apples_count=0;
+		  //проверяем больше ли счет рекорда
+        if (score>highscore){
+			highscore=score;
+			setHighscore();
+		}
+        restart();
       }
     }
   });
