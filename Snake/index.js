@@ -27,8 +27,11 @@ function getHighscore(){
 		
 }
 //ложим рекорд в локальное хранилище
-function setHighscore(){
+function setHighscore(score,highscore){
+	if (score>highscore){
+		highscore=score;
 	localStorage.setItem("highscore", highscore);
+	}
 }
 //рестарт 
 function restart(){
@@ -76,10 +79,10 @@ var n=5;
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
-function loop() {
+function game() {
 	//начальное съеденое количество яблок
   
-  requestAnimationFrame(loop);
+  requestAnimationFrame(game);
  
   //каждое 30 съеденое яблоко увеличиваем скорость
   if (apples_count==30){
@@ -104,7 +107,8 @@ function loop() {
   ctx.font = "24px Verdana";
   ctx.fillStyle = 'white';
   ctx.fillText(score,0+40,0+25)
-  highscore=getHighscore();
+  //получаем рекорд из локального хранилища
+  let highscore=getHighscore();
   ctx.font = "24px Verdana";
   ctx.fillStyle = 'white';
   ctx.fillText("Highscore: "+highscore,0+220,0+25)
@@ -114,11 +118,8 @@ function loop() {
   
  //Врезание в границу                                              40+560=cvs.height
   if (snake.x < 40 || snake.x >= cvs.width || snake.y < 40 || snake.y >= cvs.height) {
-	  //проверяем больше ли счет рекорда
-		if (score>highscore){
-			highscore=score;
-			setHighscore();
-		}
+	  //если счет больше рекорда ложим в higscore
+		setHighscore(score,highscore)
         restart();
   
   
@@ -156,11 +157,10 @@ function loop() {
     for (var i = index + 1; i < snake.cells.length; i++) {
      
       if (cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) {
-		  //проверяем больше ли счет рекорда
-        if (score>highscore){
-			highscore=score;
-			setHighscore();
-		}
+		//если счет больше рекорда ложим в higscore
+        
+		setHighscore(score,highscore);
+		
         restart();
       }
     }
@@ -190,5 +190,5 @@ document.addEventListener('keydown', function (e) {
     snake.dx = 0;
   }
 });
-requestAnimationFrame(loop);
+requestAnimationFrame(game);
 
