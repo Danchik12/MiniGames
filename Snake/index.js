@@ -4,7 +4,11 @@ var ctx = cvs.getContext("2d");
 var grid = 20;
 // скорость кадров
 var count = 0;
-
+//звуки 
+var ead=new Audio();
+ead.src='sound/apple.mp3'
+var record=new Audio();
+record.src='sound/record.mp3'
 //счет
 var score=0;
 //берем рекорд из локального хранилища
@@ -29,6 +33,7 @@ function getHighscore(){
 //ложим рекорд в локальное хранилище
 function setHighscore(score,highscore){
 	if (score>highscore){
+		record.play()
 		highscore=score;
 	localStorage.setItem("highscore", highscore);
 	}
@@ -79,11 +84,12 @@ var n=5;
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
+
+//главный цикл игры
 function game() {
-	//начальное съеденое количество яблок
-  
+	
   requestAnimationFrame(game);
- 
+	
   //каждое 30 съеденое яблоко увеличиваем скорость
   if (apples_count==30){
 	  apples_count=0;
@@ -142,7 +148,7 @@ function game() {
     ctx.fillRect(cell.x, cell.y, grid - 1, grid - 1);
     //поедания яблока
     if (cell.x === apple.x && cell.y === apple.y) {
-	
+	  ead.play()
 	  score++;
       snake.maxCells++;
 	  snake.color=getRandomColor();
@@ -190,5 +196,9 @@ document.addEventListener('keydown', function (e) {
     snake.dx = 0;
   }
 });
+
+
+//вызов игры
 requestAnimationFrame(game);
+
 
