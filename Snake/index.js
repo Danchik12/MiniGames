@@ -7,8 +7,7 @@ var count = 0;
 //звуки 
 var ead=new Audio();
 ead.src='sound/apple.mp3'
-var record=new Audio();
-record.src='sound/record.mp3'
+
 //счет
 var score=0;
 //берем рекорд из локального хранилища
@@ -33,7 +32,7 @@ function getHighscore(){
 //ложим рекорд в локальное хранилище
 function setHighscore(score,highscore){
 	if (score>highscore){
-		record.play()
+		
 		highscore=score;
 	localStorage.setItem("highscore", highscore);
 	}
