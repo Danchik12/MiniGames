@@ -24,4 +24,10 @@ link https://danchik12.github.io/MiniGames/Snake/
 
 link https://danchik12.github.io/MiniGames/Pingpong/
 
+# Пятнашки
+
+Собери за меньшее количество кликов
+
+link 
+
 
