@@ -1,3 +1,10 @@
+ //генерация рандомных светлых цветов чтобы красивее было
+function generateLightColorHex() {
+  let color = "#";
+  for (let i = 0; i < 3; i++)
+    color += ("0" + Math.floor(((1 + Math.random()) * Math.pow(16, 2)) / 2).toString(16)).slice(-2);
+  return color;
+}
 //передаем холст и размер пятнашки 
 function Game(context, cellSize){
 	//начальное состояние
@@ -7,13 +14,8 @@ function Game(context, cellSize){
     [9,10,11,12],
     [13,14,15,0]
   ];
-  //генерация рандомных светлых цветов чтобы красивее было
-function generateLightColorHex() {
-  let color = "#";
-  for (let i = 0; i < 3; i++)
-    color += ("0" + Math.floor(((1 + Math.random()) * Math.pow(16, 2)) / 2).toString(16)).slice(-2);
-  return color;
-}
+
+
 //цвет заливки пятнашек
   this.color = generateLightColorHex();
 //наш холст
@@ -188,7 +190,7 @@ function onEvent(x, y) {
   //начинаем игру заново
   if (game.victory()) {
     alert("Сделано за "+game.clicks+' кликов')
-	
+	game.color=generateLightColorHex()
     game.mix(500);
     context.fillRect(0, 0, canvas.width, canvas.height);
     game.draw(context, cellSize);
