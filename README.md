@@ -30,4 +30,10 @@ link https://danchik12.github.io/MiniGames/Pingpong/
 
 link  https://danchik12.github.io/MiniGames/%D0%9F%D1%8F%D1%82%D0%BD%D0%B0%D1%88%D0%BA%D0%B8/
 
+# Tic Tac Toe
+
+Сможешь победить компьютера?
+
+link  
+
 
