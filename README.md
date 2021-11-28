@@ -1,13 +1,6 @@
 # MiniGames
 
 
-
-# Breaking
-
-Управление стрелками лево и право клавиатуры
-
-link https://danchik12.github.io/MiniGames/Breaking/
-
 # Snake
 
 Поедай яблоки чтобы увеличить змейку.Управление стрелками
