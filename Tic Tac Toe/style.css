@@ -1,3 +1,13 @@
+html[data-theme='light']{
+	background-color: white;
+	color: black;
+
+}
+html[data-theme='dark']{
+	background-color: black;
+	color: white;
+	
+}
 td{
 	border: 2px solid #333;/*создание границы*/
 	height: 100px;/*ставим высоту 100 пикселей*/
@@ -48,5 +58,12 @@ table tr td:last-child{
 	border-radius: 5px;
 	color: white;
 	font-size: 2em;
+
+}
+.change_theme{
+	cursor: pointer;
+	
+	width: 24px;
+	height: 24px;
 
 }

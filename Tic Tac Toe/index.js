@@ -1,3 +1,4 @@
+getTheme()
 var origBoard;
 //игрок
 const huPlayer = 'X';
@@ -144,3 +145,30 @@ function minimax(newBoard, player) {
 
 	return moves[bestMove];
 }
+
+
+/*смена темы*/
+function change_Theme(){
+	let theme=localStorage.getItem('theme-type')
+	if (theme=='light'){
+	theme='dark'
+	document.documentElement.setAttribute("data-theme",theme)
+	localStorage.setItem("theme-type", theme)
+	}else{
+	theme='light'
+	document.documentElement.setAttribute("data-theme",theme)
+	localStorage.setItem("theme-type", theme)
+	}
+	
+
+}
+function getTheme(){
+		let theme = localStorage.getItem('theme-type');
+		
+		if (theme === null){
+			theme="light";
+			document.documentElement.setAttribute("data-theme",theme);
+		}else{
+			document.documentElement.setAttribute("data-theme",theme);
+		}
+	}
