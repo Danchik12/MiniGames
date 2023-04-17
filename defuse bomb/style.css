@@ -1,0 +1,66 @@
+body{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+}
+#container{
+	text-align: center;
+	background-color: black;
+	color: whitesmoke;
+	font-size: 30px;
+	width:500px;
+	height:600px;
+	padding: 10px;
+
+}
+#timer{
+	text-align: center;
+	font-size: 28px;
+	margin:15px;
+}
+#pin_code{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+}
+.code{
+	text-align:center;
+	color:whitesmoke;
+	background-color:DimGrey;
+	width:50px;
+	height:50px;
+	font-size: 37px;
+	border:2px solid white;
+	border-radius: 5px;
+	margin:10px;
+
+}
+#buttons{
+	margin-left:40px;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	display:grid;
+	grid-template-columns: 110px 110px 110px;
+
+
+}
+.number_button{
+	text-align:center;
+	color:whitesmoke;
+	background-color:black;
+	cursor: pointer;
+	width:50px;
+	height:50px;
+	font-size: 37px;
+	border:2px solid white;
+	border-radius: 50px;
+	margin:10px;
+}
+.number_button:hover{
+	background-color: Dimgray;
+}
