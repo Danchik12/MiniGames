@@ -11,7 +11,7 @@ let ScoreEl = document.getElementById('score')
 let RowsEl = document.getElementById('rows')
 let score =0;
 let rows = 0;
-let level = Math.floor(rows/5)+1;
+let level = 1;
 
 
 // цвет каждой фигуры
@@ -96,8 +96,8 @@ let rAF = null;
 let gameOver = false;
 //музыка
 let over_sound=new Audio();
-let fon_sound=new Audio();
-over_sound.src='/sound/over.mp3';
+
+over_sound.src='sound/over.mp3';
 over_sound.volume=0.3;
 
 
@@ -222,6 +222,7 @@ function placeTetromino() {
         if (playfield[row].every(cell => !!cell)) {
             score+=100;
             rows+=1;
+            level = Math.floor(rows/5)+1
             // очищаем его и опускаем всё вниз на одну клетку
             for (let r = row; r >= 0; r--) {
                 for (let c = 0; c < playfield[r].length; c++) {
