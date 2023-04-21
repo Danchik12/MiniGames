@@ -35,4 +35,8 @@ link  https://danchik12.github.io/MiniGames/Tic%20Tac%20Toe/
 
 link https://danchik12.github.io/MiniGames/defuse%20bomb/
 
+# Tetris
+
+link https://danchik12.github.io/MiniGames/Tetris/
+
 
