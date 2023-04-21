@@ -94,11 +94,7 @@ let count=0;
 let rAF = null;
 //флаг конца игры
 let gameOver = false;
-//музыка
-let over_sound=new Audio();
 
-over_sound.src='sound/over.mp3';
-over_sound.volume=0.3;
 
 
 function UpdateInfo(){
@@ -260,7 +256,7 @@ function showGameOver() {
     cancelAnimationFrame(rAF);
     // ставим флаг окончания
     gameOver = true;
-    over_sound.play()
+  
 
     // рисуем чёрный прямоугольник посередине поля
     cxt.fillStyle = 'black';
