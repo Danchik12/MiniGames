@@ -39,4 +39,8 @@ link https://danchik12.github.io/MiniGames/defuse%20bomb/
 
 link https://danchik12.github.io/MiniGames/Tetris/
 
+# 2048
+
+link https://danchik12.github.io/MiniGames/2048/
+
 
