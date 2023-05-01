@@ -256,7 +256,7 @@ function showGameOver() {
     cancelAnimationFrame(rAF);
     // ставим флаг окончания
     gameOver = true;
-  
+
 
     // рисуем чёрный прямоугольник посередине поля
     cxt.fillStyle = 'black';
