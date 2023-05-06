@@ -2,8 +2,8 @@ var cvs = document.getElementById("game");
 var ctx = cvs.getContext("2d");
 //размер клетки
 var grid = 20;
-// скорость кадров
-var count = 0;
+let count =0;
+
 //звуки 
 var ead=new Audio();
 ead.src='sound/apple.mp3'
@@ -77,12 +77,15 @@ var apple = {
   x: 320,
   y: 320
 };
+//количество поглощенных яблок
 var apples_count=0;
-var n=5;
+// для увеличения скорости
+var speed_up=5;
 //для еды
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
+
 
 //главный цикл игры
 function game() {
@@ -92,18 +95,19 @@ function game() {
   //каждое 30 съеденое яблоко увеличиваем скорость
   if (apples_count==30){
 	  apples_count=0;
-	  n--;
-	 
+	  speed_up--;
+
   }
+
   //пропускаем каждый n кадр и чтобы уменьшить скорость игры и увеличивать за съеденые яблоки
-  
-  if (n == 2){
-	  apples_count=40;
+
+  if (speed_up == 2 ){
+	  apples_count=31;
   }
-  if (++count < n) {
+  if (++count < speed_up ) {
     return;
   }
-  
+
   count = 0;
  
   ctx.clearRect(0, 0,cvs.width, cvs.height);
@@ -111,18 +115,17 @@ function game() {
   ctx.strokeRect(40,40,560,560);
   ctx.font = "24px Verdana";
   ctx.fillStyle = 'white';
-  ctx.fillText(score,0+40,0+25)
+  ctx.fillText(score,0+60,0+25)
   //получаем рекорд из локального хранилища
   let highscore=getHighscore();
-  ctx.font = "24px Verdana";
-  ctx.fillStyle = 'white';
+
   ctx.fillText("Highscore: "+highscore,0+220,0+25)
-  
+
   snake.x += snake.dx;
   snake.y += snake.dy;
   
  //Врезание в границу                                              40+560=cvs.height
-  if (snake.x < 40 || snake.x >= cvs.width || snake.y < 40 || snake.y >= cvs.height) {
+  if (snake.x < 40 || snake.x >= cvs.width || snake.y <40 || snake.y >= cvs.height) {
 	  //если счет больше рекорда ложим в higscore
 		setHighscore(score,highscore)
         restart();
@@ -162,10 +165,10 @@ function game() {
     for (var i = index + 1; i < snake.cells.length; i++) {
      
       if (cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) {
-		//если счет больше рекорда ложим в higscore
+
         
 		setHighscore(score,highscore);
-		
+          //если счет больше рекорда ложим в higscore
         restart();
       }
     }
@@ -174,23 +177,23 @@ function game() {
 //управление змеей
 document.addEventListener('keydown', function (e) {
   
-  if (e.which === 37 && snake.dx === 0) {
+  if (e.code === 'ArrowLeft' || e.code === 'KeyA'  && snake.dx === 0) {
     
     snake.dx = -grid;
     snake.dy = 0;
   }
   
-  else if (e.which === 38 && snake.dy === 0) {
+  else if (e.code === 'ArrowUp' || e.code === 'KeyW' && snake.dy === 0) {
     snake.dy = -grid;
     snake.dx = 0;
   }
   
-  else if (e.which === 39 && snake.dx === 0) {
+  else if (e.code === 'ArrowRight' || e.code === 'KeyD' && snake.dx === 0) {
     snake.dx = grid;
     snake.dy = 0;
   }
  
-  else if (e.which === 40 && snake.dy === 0) {
+  else if (e.code === 'ArrowDown' || e.code === 'KeyS' && snake.dy === 0) {
     snake.dy = grid;
     snake.dx = 0;
   }
