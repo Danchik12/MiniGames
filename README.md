@@ -33,6 +33,8 @@ link  https://danchik12.github.io/MiniGames/Tic%20Tac%20Toe/
 
 Обезвредь бомбу за 1 минуту.Успеешь?
 
+link https://danchik12.github.io/MiniGames/defuse%20bomb/
+
 # memoris 
 
 link https://danchik12.github.io/MiniGames/memoris/
