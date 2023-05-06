@@ -1,9 +1,9 @@
-getTheme()
+// поле
 var origBoard;
-//игрок
-const huPlayer = 'X';
-//компьютер
-const aiPlayer = 'O';
+//игроки
+const einPlayer = 'X';
+
+const twoPlayer = 'O';
 //выигрышные комбинации
 const winCombos = [
 	[0, 1, 2],
@@ -16,8 +16,11 @@ const winCombos = [
 	[6, 4, 2]
 ]
 //все фишки
+let textField = document.getElementById('text')
 const cells = document.querySelectorAll('.cell');
+let player;
 startGame();
+
 
 //старт игры
 function startGame() {
@@ -28,13 +31,28 @@ function startGame() {
 		cells[i].innerText = '';
 		cells[i].style.removeProperty('background-color');
 		cells[i].addEventListener('click', turnClick, false);
+		player=einPlayer;
+		textField.innerText='Ходит  '+einPlayer;
 	}
 }
+
 //функция по клику вызывается
 function turnClick(square) {
 	if (typeof origBoard[square.target.id] == 'number') {
-		turn(square.target.id, huPlayer)
-		if (!checkWin(origBoard, huPlayer) && !checkTie()) turn(bestSpot(), aiPlayer);
+		if (player == einPlayer){
+			turn(square.target.id, einPlayer)
+			textField.innerText='Ходит  '+twoPlayer;
+			if (!checkWin(origBoard, einPlayer) && !checkTie()) player =twoPlayer ;
+
+		}else {
+
+			turn(square.target.id,twoPlayer)
+			textField.innerText='Ходит  '+einPlayer;
+			if (!checkWin(origBoard, twoPlayer) && !checkTie()) player=einPlayer;
+
+		}
+
+
 	}
 }
 
@@ -60,14 +78,13 @@ function checkWin(board, player) {
 
 function gameOver(gameWon) {
 	for (let index of winCombos[gameWon.index]) {
-		document.getElementById(index).style.backgroundColor =
-			gameWon.player == huPlayer ? "blue" : "red";
+		document.getElementById(index).style.backgroundColor ='blue'
 	}
 	for (var i = 0; i < cells.length; i++) {
 		cells[i].removeEventListener('click', turnClick, false);
 	}
-	// в зависимости победил или проиграл  
-	declareWinner(gameWon.player == huPlayer ? "Ты победил!" : "Ты проиграл.");
+
+	declareWinner(gameWon.player == einPlayer ? "Победил Х" : "Победил О");
 }
 // пишется текст
 function declareWinner(who) {
@@ -79,9 +96,7 @@ function emptySquares() {
 	return origBoard.filter(s => typeof s == 'number');
 }
 
-function bestSpot() {
-	return minimax(origBoard, aiPlayer).index;
-}
+
 //ничья
 function checkTie() {
 	if (emptySquares().length == 0) {
@@ -95,80 +110,5 @@ function checkTie() {
 	return false;
 }
 
-function minimax(newBoard, player) {
-	var availSpots = emptySquares();
-
-	if (checkWin(newBoard, huPlayer)) {
-		return {score: -10};
-	} else if (checkWin(newBoard, aiPlayer)) {
-		return {score: 10};
-	} else if (availSpots.length === 0) {
-		return {score: 0};
-	}
-	var moves = [];
-	for (var i = 0; i < availSpots.length; i++) {
-		var move = {};
-		move.index = newBoard[availSpots[i]];
-		newBoard[availSpots[i]] = player;
-
-		if (player == aiPlayer) {
-			var result = minimax(newBoard, huPlayer);
-			move.score = result.score;
-		} else {
-			var result = minimax(newBoard, aiPlayer);
-			move.score = result.score;
-		}
-
-		newBoard[availSpots[i]] = move.index;
-
-		moves.push(move);
-	}
-
-	var bestMove;
-	if(player === aiPlayer) {
-		var bestScore = -10000;
-		for(var i = 0; i < moves.length; i++) {
-			if (moves[i].score > bestScore) {
-				bestScore = moves[i].score;
-				bestMove = i;
-			}
-		}
-	} else {
-		var bestScore = 10000;
-		for(var i = 0; i < moves.length; i++) {
-			if (moves[i].score < bestScore) {
-				bestScore = moves[i].score;
-				bestMove = i;
-			}
-		}
-	}
-
-	return moves[bestMove];
-}
 
 
-/*смена темы*/
-function change_Theme(){
-	let theme=localStorage.getItem('theme-type')
-	if (theme=='light'){
-	theme='dark'
-	document.documentElement.setAttribute("data-theme",theme)
-	localStorage.setItem("theme-type", theme)
-	}else{
-	theme='light'
-	document.documentElement.setAttribute("data-theme",theme)
-	localStorage.setItem("theme-type", theme)
-	}
-	
-
-}
-function getTheme(){
-		let theme = localStorage.getItem('theme-type');
-		
-		if (theme === null){
-			theme="light";
-			document.documentElement.setAttribute("data-theme",theme);
-		}else{
-			document.documentElement.setAttribute("data-theme",theme);
-		}
-	}
