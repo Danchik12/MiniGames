@@ -25,13 +25,14 @@ link  https://danchik12.github.io/MiniGames/%D0%9F%D1%8F%D1%82%D0%BD%D0%B0%D1%88
 
 # Tic Tac Toe
 
-Сможешь победить компьютера?
 
 link  https://danchik12.github.io/MiniGames/Tic%20Tac%20Toe/
 
 # Defuse bomb
 
 Обезвредь бомбу за 1 минуту.Успеешь?
+
+link https://danchik12.github.io/MiniGames/defuse%20bomb/
 
 # memoris 
 
