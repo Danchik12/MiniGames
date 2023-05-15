@@ -1,90 +1,104 @@
-var cvs = document.getElementById("game");
-var ctx = cvs.getContext("2d");
+let cvs = document.getElementById("game");
+let ctx = cvs.getContext("2d");
 //размер клетки
-var grid = 20;
+let grid = 20;
+//кадры
 let count =0;
-
+//фон
+let backgroundImg = new Image();
+backgroundImg.src='img/background.jpg'
 //звуки 
-var ead=new Audio();
+let ead=new Audio();
 ead.src='sound/apple.mp3'
 
 //счет
-var score=0;
-//берем рекорд из локального хранилища
-function getHighscore(){
-	//берем highscore
-	let highscore =localStorage.getItem('highscore');
-		//если такой записи не было
-		if (highscore === null){
-			//присваиваим highscore 0
-			highscore=0;
-			//добавляем запись
-			localStorage.setItem("highscore", highscore)
-			//возвращаем значение
-			return highscore
-			//если была
-		}else{
-			//просто возвращаем значение
-			return highscore
-		}
-		
-}
-//ложим рекорд в локальное хранилище
-function setHighscore(score,highscore){
-	if (score>highscore){
-		
-		highscore=score;
-	localStorage.setItem("highscore", highscore);
-	}
-}
-//рестарт 
-function restart(){
-	 snake.x = 180;
-     snake.y = 180;
-     snake.cells = [];
-     snake.maxCells = 1;
-     snake.dx = grid;
-     snake.dy = 0;
-	 snake.color=getRandomColor();
-     apple.x = getRandomInt(2, 23) * grid;
-     apple.y = getRandomInt(2, 23) * grid;
-	 score=0;
-	 n=5;
-	 apples_count=0;
-}
-//разный цвет змеи
-function getRandomColor(){
-	const random_color=Math.floor(Math.random()*16777215).toString(16);
-	return '#'+random_color
-}
+let score=0;
+
 // змея
-var snake = {
+let snake = {
   // coordinates
   x: 160,
   y: 160,
-  // 
+
   dx: grid,
   dy: 0,
-  color:getRandomColor(),
+  color:'yellow',
   
   cells: [],
-  //начальная длина змеи
   maxCells: 1
 };
 //еда
-var apple = {
+let appleImg = new Image();
+appleImg.src='img/apple.png'
+let trophyImg  = new Image();
+trophyImg.src ='img/trophy.png';
+let apple = {
 
   x: 320,
   y: 320
 };
-//количество поглощенных яблок
-var apples_count=0;
-// для увеличения скорости
-var speed_up=5;
+
 //для еды
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
+
+function drawScore(highscore){
+    ctx.font = "24px Verdana";
+    ctx.fillStyle = 'white';
+    ctx.drawImage(appleImg,60,3)
+    ctx.fillText(score,88,25)
+    ctx.drawImage(trophyImg,265,5)
+    ctx.fillText(highscore,295,25)
+}
+
+
+
+//берем рекорд из локального хранилища
+function getHighscore(){
+    //берем highscore
+    let highscore =localStorage.getItem('highscore');
+    //если такой записи не было
+    if (highscore === null){
+        //присваиваим highscore 0
+        highscore=0;
+        //добавляем запись
+        localStorage.setItem("highscore", highscore)
+        //возвращаем значение
+        return highscore
+        //если была
+    }else{
+        //просто возвращаем значение
+        return highscore
+    }
+}
+
+
+
+
+//ложим рекорд в локальное хранилище
+function setHighscore(score,highscore){
+
+    if (score>highscore){
+
+        highscore=score;
+        localStorage.setItem("highscore", highscore);
+    }
+}
+//рестарт
+function restart(){
+    snake.x = 160;
+    snake.y = 160;
+    snake.cells = [];
+    snake.maxCells = 1;
+    snake.dx = grid;
+    snake.dy = 0;
+    apple.x = getRandomInt(2, 23) * grid;
+    apple.y = getRandomInt(2, 23) * grid;
+    score=0;
+    count=0;
+}
+
 
 
 //главный цикл игры
@@ -92,39 +106,25 @@ function game() {
 	
   requestAnimationFrame(game);
 	
-  //каждое 30 съеденое яблоко увеличиваем скорость
-  if (apples_count==30){
-	  apples_count=0;
-	  speed_up--;
-
-  }
 
   //пропускаем каждый n кадр и чтобы уменьшить скорость игры и увеличивать за съеденые яблоки
 
-  if (speed_up == 2 ){
-	  apples_count=31;
-  }
-  if (++count < speed_up ) {
+
+  if (++count <5 ) {
     return;
   }
 
   count = 0;
  
   ctx.clearRect(0, 0,cvs.width, cvs.height);
-  ctx.strokeStyle = "white";
-  ctx.strokeRect(40,40,560,560);
-  ctx.font = "24px Verdana";
-  ctx.fillStyle = 'white';
-  ctx.fillText(score,0+60,0+25)
-  //получаем рекорд из локального хранилища
+  ctx.drawImage(backgroundImg,40,40,600,600);
   let highscore=getHighscore();
-
-  ctx.fillText("Highscore: "+highscore,0+220,0+25)
+  drawScore(highscore);
 
   snake.x += snake.dx;
   snake.y += snake.dy;
   
- //Врезание в границу                                              40+560=cvs.height
+ //Врезание в границу
   if (snake.x < 40 || snake.x >= cvs.width || snake.y <40 || snake.y >= cvs.height) {
 	  //если счет больше рекорда ложим в higscore
 		setHighscore(score,highscore)
@@ -139,8 +139,8 @@ function game() {
     snake.cells.pop();
   }
   //рисование яблока
-  ctx.fillStyle = 'red';
-  ctx.fillRect(apple.x, apple.y, grid - 1, grid - 1);
+ctx.drawImage(appleImg,apple.x,apple.y,grid-1,grid-1)
+
   //движение змеи
   
   ctx.fillStyle = snake.color;
@@ -153,8 +153,8 @@ function game() {
 	  ead.play()
 	  score++;
       snake.maxCells++;
-	  snake.color=getRandomColor();
-	  apples_count++;
+
+
 	  
 	  
       
@@ -162,7 +162,7 @@ function game() {
       apple.y = getRandomInt(2,23) * grid;
     }
     //если змея врезалась в себя
-    for (var i = index + 1; i < snake.cells.length; i++) {
+    for (let i = index + 1; i < snake.cells.length; i++) {
      
       if (cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) {
 
